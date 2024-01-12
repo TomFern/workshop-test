@@ -1,0 +1,63 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: src/prepare.py
+      hash: md5
+      md5: a1cbb11d3bc010058b45c69cc646fe36
+      size: 210
+    outs:
+    - path: data/images
+      hash: md5
+      md5: 277f608c70d7bd7991e0cd5f5cc845c6.dir
+      size: 796502375
+      nfiles: 7393
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/images
+      hash: md5
+      md5: 277f608c70d7bd7991e0cd5f5cc845c6.dir
+      size: 796502375
+      nfiles: 7393
+    - path: src/train.py
+      hash: md5
+      md5: 08b61107905b0cc6c9a669459044cc54
+      size: 1695
+    outs:
+    - path: metrics/confusion_matrix.png
+      hash: md5
+      md5: 7f155e0939883a1e8d83ea885d708572
+      size: 14713
+    - path: metrics/finetune_results.png
+      hash: md5
+      md5: 197f07a002bdfff940af3c07e040b547
+      size: 493236
+    - path: metrics/top_losses.png
+      hash: md5
+      md5: ebc32b18a41681614dde6da734fef005
+      size: 590828
+    - path: models/model.pkl
+      hash: md5
+      md5: 5decde1bba68dfdd87e0f115d20f1e40
+      size: 87549310
+    - path: models/model.pth
+      hash: md5
+      md5: 0bf8f72ca7572578fb3db953e28ac1e1
+      size: 87391130
+  test:
+    cmd: python src/test.py
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: 5decde1bba68dfdd87e0f115d20f1e40
+      size: 87549310
+    - path: models/model.pth
+      hash: md5
+      md5: 0bf8f72ca7572578fb3db953e28ac1e1
+      size: 87391130
+    - path: src/test.py
+      hash: md5
+      md5: 4b977c83aac726ef2c30f1b44469e8e9
+      size: 1273
